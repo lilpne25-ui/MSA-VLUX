@@ -49,3 +49,7 @@ Los comandos trabajan sobre **`--project-dir/.msa`** y no sobre repositorios rem
 - Los informes en zip no deben guardarse en sitios públicos; un escáner básico de secretos no garantiza privacidad de datos personales.
 - En entornos efímeros el usuario debe descargar y guardar el handoff en almacenamiento privado; las sesiones no se sincronizan automáticamente.
 - Los experimentos V5 usan reportes suministrados. Su resultado solo admite **propuestas**, jamás modificación automática de la skill.
+
+## Evolución candidata V6.0.0
+
+Ver `docs-EVOLUCION-V6.md` y los protocolos presentes bajo `reference/`. Esta variante se valida con pruebas sintéticas. NO utiliza sistemas productivos ni presupone autorizaciones.

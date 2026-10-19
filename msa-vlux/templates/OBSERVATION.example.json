@@ -1,0 +1,19 @@
+{
+  "execution_id": "run001",
+  "task_id": "ATOM01",
+  "suite_id": "SYNTHETIC_LAB",
+  "strategy": "baseline",
+  "runtime": "codex",
+  "provenance": "synthetic",
+  "artifact_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "tests_passed": 9,
+  "tests_total": 10,
+  "evidence_verified": 4,
+  "evidence_total": 5,
+  "handoffs_restored": 1,
+  "handoffs_attempted": 1,
+  "policy_violations": 0,
+  "critical_regressions": 0,
+  "duration_seconds": 150,
+  "cost_usd": null
+}

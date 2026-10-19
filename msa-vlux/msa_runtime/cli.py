@@ -19,15 +19,24 @@ def main(argv=None):
     a=sub.add_parser('eval');a.add_argument('--scenarios',default=str(ROOT/'evals/scenarios.json'));a.add_argument('--traces',required=True);a.add_argument('--output')
     a=sub.add_parser('assess');a.add_argument('--project-dir',required=True);a.add_argument('--input',required=True);a.add_argument('--output')
     a=sub.add_parser('gate');a.add_argument('--action',required=True);a.add_argument('--project-dir',required=True)
-    if VERSION in ('4.2.0','5.0.0'):
+    if VERSION in ('4.2.0','5.0.0','5.1.0','5.2.0','6.0.0'):
         a=sub.add_parser('handoff');a.add_argument('--project-dir',required=True);a.add_argument('--output',required=True);a.add_argument('--runtime',required=True);a.add_argument('--include',action='append',default=[],help='Ruta de evidencia UTF-8 autorizada bajo --project-dir; repetible')
         a=sub.add_parser('verify-handoff');a.add_argument('--archive',required=True)
         a=sub.add_parser('import-handoff');a.add_argument('--archive',required=True);a.add_argument('--target',required=True)
         a=sub.add_parser('resume');a.add_argument('--project-dir',required=True)
         a=sub.add_parser('role-packet');a.add_argument('--project-dir',required=True);a.add_argument('--role',required=True);a.add_argument('--master-execution-id',required=True);a.add_argument('--output',required=True)
         a=sub.add_parser('check-review');a.add_argument('--packet',required=True);a.add_argument('--review',required=True)
-    if VERSION=='5.0.0':
+    if VERSION in ('5.0.0','5.1.0','5.2.0','6.0.0'):
         a=sub.add_parser('improve');a.add_argument('--baseline',required=True);a.add_argument('--candidate',required=True);a.add_argument('--holdout',required=True);a.add_argument('--output')
+    if VERSION in ('5.1.0','5.2.0','6.0.0'):
+        a=sub.add_parser('observe');a.add_argument('--project-dir',required=True);a.add_argument('--input',required=True)
+        a=sub.add_parser('metrics');a.add_argument('--project-dir',required=True)
+        a=sub.add_parser('calibrate');a.add_argument('--project-dir',required=True)
+    if VERSION in ('5.2.0','6.0.0'):
+        a=sub.add_parser('benchmark');a.add_argument('--config',required=True);a.add_argument('--output')
+        a=sub.add_parser('paired-experiment');a.add_argument('--input',required=True);a.add_argument('--output')
+    if VERSION=='6.0.0':
+        a=sub.add_parser('adaptive-plan');a.add_argument('--input',required=True);a.add_argument('--experiment');a.add_argument('--output')
     args=p.parse_args(argv)
     try:
         c=args.command
@@ -61,15 +70,26 @@ def main(argv=None):
         elif c=='improve':
             from . import improvement
             result=improvement.recommend(args.baseline,args.candidate,args.holdout)
+        elif c in ('observe','metrics','calibrate'):
+            from . import observability
+            if c=='observe':result=observability.ingest(args.project_dir,core.read(args.input))
+            elif c=='metrics':result=observability.summary(args.project_dir)
+            else:result=observability.calibration(args.project_dir)
+        elif c in ('benchmark','paired-experiment'):
+            from . import experiments
+            result=experiments.optimize(core.read(args.config)) if c=='benchmark' else experiments.paired_analysis(core.read(args.input))
+        elif c=='adaptive-plan':
+            from . import adaptive
+            result=adaptive.plan(core.read(args.input),core.read(args.experiment) if args.experiment else None)
         else:raise ValueError('Operación no reconocida')
         data=json.dumps(result,indent=2,ensure_ascii=False,sort_keys=True)
-        if c in ('eval','assess','improve') and getattr(args,'output',None):
+        if c in ('eval','assess','improve','benchmark','paired-experiment','adaptive-plan') and getattr(args,'output',None):
             outfile=Path(args.output)
             if outfile.exists():raise FileExistsError('Archivo de salida existente: no sobrescrito')
             core.atomic_write(outfile,data.encode())
         print(data)
         return 0 if c!='eval' or result['failed']==0 else 1
-    except (ValueError,KeyError,FileNotFoundError,FileExistsError,PermissionError) as ex:
+    except (ValueError,KeyError,FileNotFoundError,FileExistsError,PermissionError,TimeoutError) as ex:
         print('MSA ERROR: '+str(ex),file=sys.stderr)
         return 2
 

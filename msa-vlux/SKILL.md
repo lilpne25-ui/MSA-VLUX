@@ -1,9 +1,9 @@
 ---
 name: msa-vlux
-description: Metodología Secuencial Atómica MSA-VLUX 5.0.0 para Codex y Claude Code/Cloud; auditoría y entrega controladas por átomos, evidencia, autoevaluación, continuidad y mejora supervisada cuando la versión lo admita.
+description: Metodología Secuencial Atómica MSA-VLUX 6.0.0 para Codex y Claude Code/Cloud; auditoría y entrega controladas por átomos, evidencia, autoevaluación, continuidad y mejora supervisada cuando la versión lo admita.
 ---
 
-# MSA-VLUX 5.0.0 — Skill genérica y portable
+# MSA-VLUX 6.0.0 — Skill genérica y portable
 
 **No se precargan aplicaciones, clientes, contratos, cuentas, repositorios, entornos ni decisiones.** Si no hay proyecto, declara `READY_NO_PROJECT` y no inventes uno. No reutilices información de otros proyectos.
 
@@ -43,3 +43,9 @@ description: Metodología Secuencial Atómica MSA-VLUX 5.0.0 para Codex y Claude
 - Los escáneres de cadenas detectan solo indicios, no garantizan ausencia de secretos; validar paquetes y adjuntos con revisión humana.
 - No garantizar persistencia ni autoaprendizaje no instrumentados. Para Cloud efímero, V4.2+ entrega un handoff verificable que el usuario debe guardar en un destino privado.
 - `AGENT_RUNTIME=claude-cloud` no significa que pueda extraer ZIP, acceder a disco o ejecutar Python: comprobarlo.
+
+## Capacidades de V6.0.0
+
+- V5.1: `observe`, `metrics`, `calibrate` con registros suministrados y sin verificación automática de procedencia.
+- V5.2: `benchmark` matemático sintético (PSO/random) y `paired-experiment` (datos pareados, holdout y revisión humana).
+- V6.0: `adaptive-plan` por riesgo; opcional `--experiment` informativo sin promover ni autorizar acciones.
