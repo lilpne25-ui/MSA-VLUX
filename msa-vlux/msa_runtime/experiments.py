@@ -21,9 +21,9 @@ def optimize(config):
     if any(isinstance(v,bool) or not isinstance(v,(float,int)) or not math.isfinite(v) for v in [low,high]) or not -50<=low<high<=50:
         raise ValueError('Rango inválido')
     rng=random.Random(seed);objective=FUNCTIONS[fn];best_value=float('inf');best=None;history=[]
-    def score(point):
+    def score(point, value=None):
         nonlocal best,best_value
-        value=objective(point)
+        if value is None:value=objective(point)
         if value<best_value:best_value=value;best=list(point)
         history.append(round(best_value,8))
     if alg=='random':
@@ -44,7 +44,7 @@ def optimize(config):
             pos=positions[i]
             val=objective(pos)
             if val<personal_v[i]:personal_v[i]=val;personal[i]=list(pos)
-            score(pos)
+            score(pos,val)
     return {'kind':'synthetic_benchmark','algorithm':alg,'function':fn,'seed':seed,'evaluations':n,
             'best_value':round(best_value,8),'best_position':[round(x,8) for x in best],
             'history':history,'scope':'synthetic_only','external_effects':False}

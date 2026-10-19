@@ -28,3 +28,5 @@ jobs:
           python scripts/msa.py eval --traces evals/traces-pass.json
       - name: Validate committed ZIPs against SHA-256
         run: sha256sum -c dist/SHA256SUMS.txt
+      - name: Validate each installable release independently
+        run: python scripts/verify_release_zips.py

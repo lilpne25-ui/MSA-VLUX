@@ -52,6 +52,16 @@ class TestExperiments(unittest.TestCase):
         a=experiments.optimize(self.config());b=experiments.optimize(self.config())
         self.assertEqual(a,b);self.assertEqual(a['evaluations'],180);self.assertFalse(a['external_effects'])
         self.assertLessEqual(a['best_value'],a['history'][0]);self.assertEqual(len(a['history']),180)
+    def test_pso_uses_exact_budget_calls(self):
+        calls=[0]
+        original=experiments.FUNCTIONS['sphere']
+        def instrumented(xs):
+            calls[0]+=1
+            return original(xs)
+        experiments.FUNCTIONS['sphere']=instrumented
+        try: result=experiments.optimize(self.config(budget=60))
+        finally: experiments.FUNCTIONS['sphere']=original
+        self.assertEqual(calls[0],result['evaluations'])
     def test_deterministic_random_and_bounded(self):
         a=experiments.optimize(self.config('random'));self.assertEqual(a,experiments.optimize(self.config('random')))
         self.assertTrue(all(-5<=x<=5 for x in a['best_position']))
