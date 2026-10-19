@@ -1,0 +1,30 @@
+name: Verify MSA-VLUX
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Verify main skill and tests
+        working-directory: msa-vlux
+        run: |
+          python scripts/msa.py doctor
+          python scripts/msa.py verify-package
+          python -m unittest discover -s tests -v
+          python scripts/msa.py eval --traces evals/traces-pass.json
+      - name: Validate committed ZIPs against SHA-256
+        run: sha256sum -c dist/SHA256SUMS.txt

@@ -1,0 +1,1 @@
+{"sample_count":20,"suite_id":"synthetic-primary-v1","trace_sha256":"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","pass_rate":0.95,"evidence_coverage":0.95,"recovery_rate":0.95,"duration_seconds":100,"policy_violations":1,"critical_regressions":0}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "MSA-VLUX"
+  short_description: "Auditoría, ejecución atómica y mejora con evidencia"
+  default_prompt: "Usa $msa-vlux para examinar el proyecto actual con preflight de capacidades, sin usar contexto de otros proyectos y sin escrituras remotas no autorizadas."

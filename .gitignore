@@ -1,0 +1,19 @@
+# MSA projects and handoffs are not public artifacts
+.msa/
+**/.msa/
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.db
+*.log
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+.DS_Store

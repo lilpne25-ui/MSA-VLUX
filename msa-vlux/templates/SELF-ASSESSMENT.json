@@ -1,0 +1,10 @@
+{
+ "dimensions": {
+  "accuracy":{"score":2,"evidence_ids":[],"claim":"Pendiente de verificación independiente"},
+  "evidence":{"score":2,"evidence_ids":[],"claim":"Pendiente"},
+  "permissions":{"score":2,"evidence_ids":[],"claim":"Permisos por validar"},
+  "security":{"score":2,"evidence_ids":[],"claim":"Controles no probados"},
+  "recovery":{"score":2,"evidence_ids":[],"claim":"Restauración por probar"},
+  "delivery":{"score":2,"evidence_ids":[],"claim":"Entrega pendiente"}
+ }
+}

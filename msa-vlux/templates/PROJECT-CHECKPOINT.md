@@ -1,0 +1,16 @@
+# Checkpoint MSA portable
+
+PROJECT_ID: (generado por `init`)
+MSA_VERSION: (CLI)
+LIFECYCLE_MODE: UNKNOWN
+ACTIVE_ATOM: NOT_ASSIGNED
+BASELINE_SHA: UNKNOWN
+RELEASE_SHA: UNKNOWN
+DEPLOYED_SHA: UNKNOWN
+EXECUTED_TESTS: NOT_EXECUTED
+EXTERNAL_WRITE_AUTHORIZED: NO
+TECHNICAL_GUARDS: NOT_VERIFIED
+OPEN_BLOCKERS: UNKNOWN
+NEXT_ALLOWED_STEP: PREFLIGHT
+
+**Nota:** evidencia B1 (código) ≠ B2 (release) ≠ B3 (despliegue) ≠ UAT físico. No guardar secretos ni datos identificables en este archivo.
