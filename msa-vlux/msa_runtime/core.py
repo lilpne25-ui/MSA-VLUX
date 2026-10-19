@@ -89,6 +89,9 @@ def append(project,kind,payload,actor='agent'):
     folder=root(project)
     with Mutex(folder/'.write.lock'):
         prior=check_chain(project);state=load_state(project)
+        if kind=='metric' and isinstance(payload,dict) and payload.get('execution_id'):
+            if any(e['type']=='metric' and e['payload'].get('execution_id')==payload['execution_id'] for e in events(project)):
+                raise ValueError('execution_id duplicado en el expediente')
         event={'seq':prior['events']+1,'id':uuid.uuid4().hex,'time':now(),'type':kind,
                'actor':actor,'payload':payload,'prev_hash':prior['last_hash']}
         event['hash']=digest(jsonbytes(event))

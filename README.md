@@ -1,46 +1,33 @@
-# MSA-VLUX — metodología portable para agentes
+# MSA-VLUX — metodología portable para Codex y Claude
 
-**Versión principal: V5.0.0.** Skill genérica para Codex y Claude Code. Incluye autoevaluación, continuidad verificable entre sesiones y propuesta de mejoras basada en resultados. No precarga información de aplicaciones, clientes o proyectos.
+**Rama candidata V6.0.0.** Evolución ejecutable y sin contexto de aplicaciones o clientes.
 
-> **Importante:** una skill NO es un sandbox, no concede permisos, no instala barreras técnicas ni sincroniza automáticamente conversaciones. Ningún push, merge, despliegue, lectura privada o acción con efectos externos queda autorizado por el mero hecho de instalarla.
+- V5.1: observabilidad local, autoevaluación calibrada y ciclo PDCA/DMAIC.
+- V5.2: experimentos pareados y benchmarks matemáticos offline PSO/random.
+- V6.0: planeación adaptativa supervisada por riesgos, sin permisos autónomos.
 
-## Instalación rápida
+Las pruebas son sintéticas; **no existe** instrumentación automática acreditada de ejecuciones reales de Codex/Claude y las skills **no** son barreras técnicas de seguridad. No hay despliegue, lectura de clientes ni autoaplicación de mejoras.
 
-1. Usa el código expandido de [`msa-vlux/`](msa-vlux/) o descarga [`dist/MSA-VLUX-V5-CODEX-CLAUDE.zip`](dist/MSA-VLUX-V5-CODEX-CLAUDE.zip).
-2. Para Codex, copia `msa-vlux/` al directorio de skills que tenga configurado Codex (por ejemplo `~/.agents/skills/msa-vlux/` o `.agents/skills/msa-vlux/` dentro del proyecto).
-3. Para Claude Code, copia `msa-vlux/` a `~/.claude/skills/msa-vlux/` o `.claude/skills/msa-vlux/`.
-4. Reinicia la sesión y solicita `$msa-vlux`. En Claude Cloud, adjuntar el ZIP no implica instalación persistente ni ejecución de scripts.
+## Instalación
 
-## Comprobación
+Copiar [msa-vlux/](msa-vlux/) a una carpeta de skills configurada de Codex o Claude Code o utilizar el ZIP indicado. La transferencia de sesiones (handoff) sigue requiriendo archivar y compartir el ZIP explícitamente.
 
 ```bash
 cd msa-vlux
 python scripts/msa.py doctor
 python scripts/msa.py verify-package
 python -m unittest discover -s tests -v
-python scripts/msa.py eval --traces evals/traces-pass.json
 ```
 
-La evaluación adversarial `python scripts/msa.py eval --traces evals/traces-fail.json` debe fallar intencionalmente.
+## Distribuciones
 
-## Versiones
+- [V5.1](dist/MSA-VLUX-V5.1.0-CODEX-CLAUDE.zip)
+- [V5.2](dist/MSA-VLUX-V5.2.0-CODEX-CLAUDE.zip)
+- [V6.0](dist/MSA-VLUX-V6.0.0-CODEX-CLAUDE.zip)
+- [Evolución consolidada](dist/MSA-VLUX-V5.1-V5.2-V6.0-COMPLETO.zip)
 
-| Versión | Función distintiva | Archivo |
-|---|---|---|
-| V4.0.0-rc3 | Base histórica (archivo) | [`dist/MSA-VLUX-V4-RC3-CODEX-SKILL.zip`](dist/MSA-VLUX-V4-RC3-CODEX-SKILL.zip) |
-| V4.1 | Autoevaluación, integridad y pruebas negativas | [`dist/MSA-VLUX-V4.1-CODEX-CLAUDE.zip`](dist/MSA-VLUX-V4.1-CODEX-CLAUDE.zip) |
-| V4.2 | Transferencia de expedientes y revisiones | [`dist/MSA-VLUX-V4.2-CODEX-CLAUDE.zip`](dist/MSA-VLUX-V4.2-CODEX-CLAUDE.zip) |
-| **V5.0** | Evaluación basada en baseline/candidato/holdout, con revisión humana | [`dist/MSA-VLUX-V5-CODEX-CLAUDE.zip`](dist/MSA-VLUX-V5-CODEX-CLAUDE.zip) |
+Conservamos [distribuciones históricas](dist/) y [documentación de evolución](docs/EVOLUCION-V6.md).
 
-[Paquete con todas las versiones](dist/MSA-VLUX-EVOLUCION-4.1-4.2-5-COMPLETO.zip) · [Historial de versiones](docs/VERSIONES.md) · [Informe de validación](docs/VALIDACION.md) · [Prompt de arranque](docs/PROMPT-ARRANQUE.md)
+## Seguridad y licencia
 
-## Seguridad y continuidad
-
-- Los paquetes de handoff conservan exclusivamente lo expresamente incluido y verificado; no representan memoria automática ni guardan código no seleccionado.
-- Los permisos externos no se transfieren entre sesiones; cada entorno debe aplicar sus propios controles efectivos.
-- Las pruebas reportadas hasta aquí son **locales y sintéticas**, no certifican el comportamiento de una instancia real de Codex o Claude.
-- Las carpetas `.msa/`, archivos `.env` y credenciales **no deben publicarse**. [Política de seguridad](docs/SEGURIDAD.md).
-
-## Licencia
-
-No se incluye una licencia de código abierto. Los términos de uso y redistribución están pendientes de definición por quien controla el repositorio.
+Todo acceso externo requiere aprobación específica y controles reales en el sistema operativo/proveedor. Sin archivo LICENSE: derechos y redistribución no concedidos automáticamente.

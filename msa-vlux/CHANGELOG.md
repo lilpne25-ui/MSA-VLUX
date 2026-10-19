@@ -1,3 +1,15 @@
+# MSA-VLUX V6.0.0
+
+
+## Capacidades de V6.0.0
+
+- V5.1: `observe`, `metrics`, `calibrate` con registros suministrados y sin verificación automática de procedencia.
+- V5.2: `benchmark` matemático sintético (PSO/random) y `paired-experiment` (datos pareados, holdout y revisión humana).
+- V6.0: `adaptive-plan` por riesgo; opcional `--experiment` informativo sin promover ni autorizar acciones.
+
+
+---
+
 # MSA-VLUX 5.0.0 — cambios de esta distribución
 
 **Origen conservado:** núcleo V4.0.0-rc3 y 12 módulos, sin contenido de aplicaciones.
